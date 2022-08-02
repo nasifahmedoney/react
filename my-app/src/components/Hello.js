@@ -1,8 +1,8 @@
 //import React from "react";
 
-function Hello()
+function Hello(props)
 {
-    return <h1>hello nasif</h1>;
+    return <h1>hello {props.name}</h1>;
 }
 
 export default Hello
