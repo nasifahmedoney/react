@@ -11,9 +11,15 @@ class ClassComponent extends Component{
             ]
         }
     }
-    clickHandler() {
-        console.log("hello");
-        alert('alart');
+    // works only when using arrow function
+    clickHandler=()=> {
+        this.setState({
+            users:[
+                {name:'new user1', age:'100'},
+                {name:'new user2', age:'200'},
+                {name:'new user3', age:'300'}
+            ]
+        })
     }
     render(){
         return (
