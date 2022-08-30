@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/contact',[ContactController::class,'index']);
+Route::get('/contact',[ContactController::class,'index'])->middleware('checkValue');
