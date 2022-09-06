@@ -13,6 +13,12 @@
     <div class="py-12">
 
         <div class="container">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{session('success')}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
@@ -47,8 +53,8 @@
                                 @csrf
                                 <div class="form-group">
                                   <label for="categoryName">Category</label>
-                                  <input type="text" name="categoryName" class="form-control" id="categoryName" placeholder="Category Name">
-                                  @error('categoryName')
+                                  <input type="text" name="category_name" class="form-control" id="categoryName" placeholder="Category Name">
+                                  @error('category_name')
                                       <span class="text-danger">{{ $message }} </span>
                                   @enderror
                                 </div>
