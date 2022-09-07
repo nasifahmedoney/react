@@ -27,21 +27,31 @@
                     <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">id</th>
+                            <th scope="col">Category Name</th>
                             <th scope="col">Created at</th>
+                            <th scope="col">Updated at</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                          </tr>
+                            @foreach ($categories as $category)
+                            <tr>
+                                <th scope="row">{{ $category->id }}</th>
+                                <td>{{ $category->category_name }}</td>
+                                <td>{{ $category->created_at->diffForHumans() }}</td>
+                                <td>
+                                    @if($category->updated_at != NULL)
+                                    {{ $category->updated_at->diffForHumans() }}
+                                    @else
+                                    <span>No data available</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
+                    {{-- paginate link --}}
+                    {{ $categories->links() }}
                 </div>
                 </div>
             </div>
@@ -58,7 +68,7 @@
                                       <span class="text-danger">{{ $message }} </span>
                                   @enderror
                                 </div>
-                                <button type="submit" class="btn btn-primary">Add Category</button>
+                                <button type="submit" class="btn btn-primary mt-3">Add Category</button>
                             </form>
                     </div>
                     </div>
