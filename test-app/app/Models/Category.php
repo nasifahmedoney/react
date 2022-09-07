@@ -17,4 +17,9 @@ class Category extends Model
         'user_id',
         'created_at'
     ];
+
+    public function user(){
+        //join on table name: User::class, foreign key, local key from Category::class
+        return $this->hasOne(User::class,'id','user_id');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
 use App\Models\Category;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -16,7 +17,8 @@ class CategoryController extends Controller
         // when using paginate, Category::all()-> use Category::paginate(), same resuls with pagination
         $categories = Category::paginate(5);
         return view('admin.category.index',[
-            'categories' => $categories
+            'categories' => $categories,
+            'users'=> User::all()
         ]);
     }
 

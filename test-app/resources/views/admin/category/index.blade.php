@@ -5,7 +5,7 @@
                 {{ Auth::user()->name}}
             </b>
             <b style="float:right;">Total users:
-                {{-- <span class="badge rounded-pill text-bg-primary">{{ count($users) }}</span> --}}
+                <span class="badge rounded-pill text-bg-primary">{{ count($users) }}</span>
             </b>
         </h2>
     </x-slot>
@@ -29,7 +29,7 @@
                           <tr>
                             <th scope="col">id</th>
                             <th scope="col">Category Name</th>
-                            <th scope="col">Created at</th>
+                            <th scope="col">User</th>
                             <th scope="col">Updated at</th>
                           </tr>
                         </thead>
@@ -38,7 +38,7 @@
                             <tr>
                                 <th scope="row">{{ $category->id }}</th>
                                 <td>{{ $category->category_name }}</td>
-                                <td>{{ $category->created_at->diffForHumans() }}</td>
+                                <td>{{ $category->user->name }}</td>
                                 <td>
                                     @if($category->updated_at != NULL)
                                     {{ $category->updated_at->diffForHumans() }}
