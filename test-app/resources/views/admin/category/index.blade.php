@@ -38,6 +38,7 @@
                             <tr>
                                 <th scope="row">{{ $category->id }}</th>
                                 <td>{{ $category->category_name }}</td>
+                                {{-- table Join category and user, user_id == id --}}
                                 <td>{{ $category->user->name }}</td>
                                 <td>
                                     @if($category->updated_at != NULL)
