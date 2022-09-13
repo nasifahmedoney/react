@@ -23,6 +23,8 @@ Route::get('/', function () {
 Route::get('/contact',[ContactController::class,'index'])->middleware('checkValue');
 Route::get('/category/all',[CategoryController::class,'showAllCategories'])->name('all.category');
 Route::post('/category/add',[CategoryController::class,'addCategory'])->name('add.category');
+Route::get('/category/edit/{id}',[CategoryController::class,'editCategories']);
+Route::post('/category/edit/{id}',[CategoryController::class,'updateCategories']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

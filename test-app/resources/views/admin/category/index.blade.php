@@ -31,6 +31,7 @@
                             <th scope="col">Category Name</th>
                             <th scope="col">User</th>
                             <th scope="col">Updated at</th>
+                            <th scope="col">Actions</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -39,15 +40,17 @@
                                 <th scope="row">{{ $category->id }}</th>
                                 <td>{{ $category->category_name }}</td>
                                 {{-- table Join category and user, user_id == id --}}
-                                {{-- <td>{{ $category->user->name }}</td> --}}
-                                <td>{{ $category->name }}</td>
+                                <td>{{ $category->user->name }}</td>
                                 <td>
                                     @if($category->updated_at != NULL)
-                                    {{-- {{ $category->updated_at->diffForHumans() }} --}}
-                                    {{ $category->updated_at }}
+                                    {{ $category->updated_at->diffForHumans() }}
                                     @else
                                     <span>No data available</span>
                                     @endif
+                                </td>
+                                <td>
+                                    <a href="/category/edit/{{ $category->id }}"><button class="btn btn-info">Edit</button></a>
+                                    <a href=""><button class="btn btn-danger">Delete</button></a>
                                 </td>
                             </tr>
                             @endforeach

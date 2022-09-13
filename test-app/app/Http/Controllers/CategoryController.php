@@ -14,20 +14,36 @@ use Illuminate\Support\Facades\Redirect;
 class CategoryController extends Controller
 {
     public function showAllCategories(){
-        /* for using query builder,Category model, user()->hasOne function is not required,
-        include use Illuminate\Support\Facades\DB;
-         */
-        $categories = DB::table('categories')
-        ->join('users','categories.user_id','users.id')
-        ->select('categories.*','users.name')
-        ->latest()->paginate(5);
-
-
-        // $categories = Category::paginate(5);
+        $categories = Category::paginate(5);
         return view('admin.category.index',[
             'categories' => $categories,
             'users'=> User::all()
         ]);
+    }
+
+    public function editCategories($id){
+        $editCategoryId = Category::find($id);
+
+        return view('admin.category.edit',[
+            'category' => $editCategoryId,
+            'users'=> User::all()
+        ]);
+    }
+    public function updateCategories($id, Request $request){
+        $editCategoryId = Category::find($id);
+
+        $validateData = $request->validate([
+            'category_name' => 'required|unique:categories|max:255'
+        ],
+        [
+            'category_name.required' => 'Update Category name is required'
+        ]);
+
+        $editCategoryId->category_name = $request['category_name'];
+
+        $editCategoryId->save();
+
+        return Redirect('/category/all')->with('success','Category name has been updated successfully.');
     }
 
     public function addCategory(Request $request){
