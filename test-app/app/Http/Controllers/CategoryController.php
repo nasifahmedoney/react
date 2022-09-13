@@ -8,14 +8,22 @@ use App\Models\Category;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
     public function showAllCategories(){
-        // $categories = Category::all();
-        // when using paginate, Category::all()-> use Category::paginate(), same resuls with pagination
-        $categories = Category::paginate(5);
+        /* for using query builder,Category model, user()->hasOne function is not required,
+        include use Illuminate\Support\Facades\DB;
+         */
+        $categories = DB::table('categories')
+        ->join('users','categories.user_id','users.id')
+        ->select('categories.*','users.name')
+        ->latest()->paginate(5);
+
+
+        // $categories = Category::paginate(5);
         return view('admin.category.index',[
             'categories' => $categories,
             'users'=> User::all()
