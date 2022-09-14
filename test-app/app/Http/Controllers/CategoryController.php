@@ -30,7 +30,7 @@ class CategoryController extends Controller
         ]);
     }
     public function updateCategories($id, Request $request){
-        $editCategoryId = Category::find($id);
+        // $editCategoryId = Category::find($id);
 
         $validateData = $request->validate([
             'category_name' => 'required|unique:categories|max:255'
@@ -39,9 +39,14 @@ class CategoryController extends Controller
             'category_name.required' => 'Update Category name is required'
         ]);
 
-        $editCategoryId->category_name = $request['category_name'];
+        // $editCategoryId->category_name = $request['category_name'];
 
-        $editCategoryId->save();
+        // $editCategoryId->save();
+
+        //eloquent update data
+        $editCategoryId = Category::find($id)->update([
+            'category_name' => $request->category_name
+        ]);
 
         return Redirect('/category/all')->with('success','Category name has been updated successfully.');
     }
