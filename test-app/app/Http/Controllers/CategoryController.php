@@ -15,40 +15,12 @@ class CategoryController extends Controller
 {
     public function showAllCategories(){
         $categories = Category::paginate(5);
+        $trash = Category::onlyTrashed()->latest()->paginate(3);
         return view('admin.category.index',[
             'categories' => $categories,
-            'users'=> User::all()
+            'users'=> User::all(),
+            'trash' => $trash
         ]);
-    }
-
-    public function editCategories($id){
-        $editCategoryId = Category::find($id);
-
-        return view('admin.category.edit',[
-            'category' => $editCategoryId,
-            'users'=> User::all()
-        ]);
-    }
-    public function updateCategories($id, Request $request){
-        // $editCategoryId = Category::find($id);
-
-        $validateData = $request->validate([
-            'category_name' => 'required|unique:categories|max:255'
-        ],
-        [
-            'category_name.required' => 'Update Category name is required'
-        ]);
-
-        // $editCategoryId->category_name = $request['category_name'];
-
-        // $editCategoryId->save();
-
-        //eloquent update data
-        $editCategoryId = Category::find($id)->update([
-            'category_name' => $request->category_name
-        ]);
-
-        return Redirect('/category/all')->with('success','Category name has been updated successfully.');
     }
 
     public function addCategory(Request $request){
@@ -61,7 +33,6 @@ class CategoryController extends Controller
             'category_name.required' => 'Category name is required'
         ]);
 
-        //using 'insert' instead of 'create' does not update timestamps, 'updated_at' column in categories table
         Category::create([
             'category_name' => $request->category_name,
             'user_id' => Auth::id(),
@@ -69,5 +40,45 @@ class CategoryController extends Controller
         ]);
 
         return Redirect()->back()->with('success','Success!!');
+    }
+
+    public function editCategories($id){
+        $editCategoryId = Category::find($id);
+
+        return view('admin.category.edit',[
+            'category' => $editCategoryId,
+            'users'=> User::all()
+        ]);
+    }
+
+    public function updateCategories($id, Request $request){
+
+        $validateData = $request->validate([
+            'category_name' => 'required|unique:categories|max:255'
+        ],
+        [
+            'category_name.required' => 'Update Category name is required'
+        ]);
+
+        $editCategoryId = Category::find($id)->update([
+            'category_name' => $request->category_name
+        ]);
+
+        return Redirect('/category/all')->with('success','Category name has been updated successfully.');
+    }
+
+    public function softdelete($id){
+        $delete = Category::find($id)->delete();
+        return Redirect()->back()->with('success','item deleted successfully!!');
+    }
+
+    public function restore($id){
+        $delete = Category::withTrashed()->find($id)->restore();
+        return Redirect()->back()->with('success','item resotred successfully!!');
+    }
+
+    public function permanentDelete($id){
+        $permanentDelete = Category::onlyTrashed()->find($id)->forceDelete();
+        return Redirect()->back()->with('success','item permanently deleted successfully!!');
     }
 }

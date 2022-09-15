@@ -25,6 +25,9 @@ Route::get('/category/all',[CategoryController::class,'showAllCategories'])->nam
 Route::post('/category/add',[CategoryController::class,'addCategory'])->name('add.category');
 Route::get('/category/edit/{id}',[CategoryController::class,'editCategories']);
 Route::post('/category/edit/{id}',[CategoryController::class,'updateCategories']);
+Route::get('/softdelete/{id}',[CategoryController::class,'softdelete']);
+Route::get('/category/restore/{id}',[CategoryController::class,'restore']);
+Route::get('/category/pdelete/{id}',[CategoryController::class,'permanentDelete']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
