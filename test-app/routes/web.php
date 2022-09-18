@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
 use App\Models\User;
 
 /*
@@ -21,6 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/contact',[ContactController::class,'index'])->middleware('checkValue');
+// category controller
 Route::get('/category/all',[CategoryController::class,'showAllCategories'])->name('all.category');
 Route::post('/category/add',[CategoryController::class,'addCategory'])->name('add.category');
 Route::get('/category/edit/{id}',[CategoryController::class,'editCategories']);
@@ -28,6 +30,9 @@ Route::post('/category/edit/{id}',[CategoryController::class,'updateCategories']
 Route::get('/softdelete/{id}',[CategoryController::class,'softdelete']);
 Route::get('/category/restore/{id}',[CategoryController::class,'restore']);
 Route::get('/category/pdelete/{id}',[CategoryController::class,'permanentDelete']);
+// brand controller
+Route::get('/brand/all/',[BrandController::class,'allBrands'])->name('all.brand');
+Route::post('/brand/add/',[BrandController::class,'storeBrands'])->name('store.brand');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
