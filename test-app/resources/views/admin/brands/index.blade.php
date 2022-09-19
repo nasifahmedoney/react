@@ -45,8 +45,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="/category/edit/{{ $brand->id }}"><button class="btn btn-info">Edit</button></a>
-                                            <a href="/softdelete/{{ $brand->id }}"><button class="btn btn-danger">Delete</button></a>
+                                            <a href="/brand/edit/{{ $brand->id }}"><button class="btn btn-info">Edit</button></a>
+                                            <a href="/brand/delete/{{ $brand->id }}"><button class="btn btn-danger">Delete</button></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -72,7 +72,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="brandImage">Brand Image</label>
-                                            <input type="file" name="brand_image" class="form-control" id="brandImage" placeholder="Enter brand Name">
+                                            <input type="file" name="brand_image" class="form-control" id="brandImage">
                                             @error('brand_image')
                                                 <span class="text-danger">{{ $message }} </span>
                                             @enderror

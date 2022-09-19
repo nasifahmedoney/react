@@ -33,6 +33,8 @@ Route::get('/category/pdelete/{id}',[CategoryController::class,'permanentDelete'
 // brand controller
 Route::get('/brand/all/',[BrandController::class,'allBrands'])->name('all.brand');
 Route::post('/brand/add/',[BrandController::class,'storeBrands'])->name('store.brand');
+Route::get('/brand/edit/{id}',[BrandController::class,'editBrands']);
+Route::post('/brand/edit/{id}',[BrandController::class,'updateBrands']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

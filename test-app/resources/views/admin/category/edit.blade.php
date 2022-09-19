@@ -20,29 +20,26 @@
                 </div>
             @endif
         <div class="row">
-
-                    <div class="d-flex justify-content-center">
-                        <div class="col-md-4 mt-5">
-                            <div class="card">
-                                <div class="card-header">Edit Catagory</div>
-                                <div class="card-body">
-                                        <form method="POST" action="/category/edit/{{$category->id }}">
-                                            @csrf
-                                            <div class="form-group">
-                                            <label for="categoryName">Category</label>
-                                            <input type="text" name="category_name" class="form-control" id="categoryName" placeholder="{{$category->category_name}}">
-                                            @error('category_name')
-                                                <span class="text-danger">{{ $message }} </span>
-                                            @enderror
-                                            </div>
-                                            <button type="submit" class="btn btn-primary mt-3">Edit Category</button>
-                                        </form>
-                                </div>
-                            </div>
+            <div class="d-flex justify-content-center">
+                <div class="col-md-4 mt-5">
+                    <div class="card">
+                        <div class="card-header">Edit Catagory</div>
+                        <div class="card-body">
+                                <form method="POST" action="/category/edit/{{$category->id }}">
+                                    @csrf
+                                    <div class="form-group">
+                                    <label for="categoryName">Category</label>
+                                    <input type="text" name="category_name" class="form-control" id="categoryName" placeholder="{{$category->category_name}}">
+                                    @error('category_name')
+                                        <span class="text-danger">{{ $message }} </span>
+                                    @enderror
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-3">Edit Category</button>
+                                </form>
                         </div>
-
                     </div>
-
+                </div>
+            </div>
         </div>
 
         </div>
