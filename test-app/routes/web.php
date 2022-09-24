@@ -35,6 +35,7 @@ Route::get('/brand/all/',[BrandController::class,'allBrands'])->name('all.brand'
 Route::post('/brand/add/',[BrandController::class,'storeBrands'])->name('store.brand');
 Route::get('/brand/edit/{id}',[BrandController::class,'editBrands']);
 Route::post('/brand/edit/{id}',[BrandController::class,'updateBrands']);
+Route::get('/brand/delete/{id}',[BrandController::class,'deleteBrand']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

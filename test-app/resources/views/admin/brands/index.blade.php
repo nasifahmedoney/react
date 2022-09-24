@@ -17,6 +17,7 @@
                 </div>
             @endif
                 <div class="row">
+                @if( count($brands) > 0 )
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">Brands</div>
@@ -57,6 +58,11 @@
                         </div>
                         </div>
                     </div>
+                    @else
+                        <div class="col-md-8">
+                            <span>No items available</span>
+                        </div>
+                    @endif
                         <div class="col-md-4">
                             <div class="card">
                             <div class="card-header">Add Brands</div>

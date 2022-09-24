@@ -51,4 +51,44 @@ class BrandController extends Controller
             'brand' => $brand
         ]);
     }
+
+    public function updateBrands(Request $request, $id){
+        $validateInput = $request->validate([
+            'brand_name' => 'required|min:4',
+        ],
+        [
+            'brand_name.required' => 'Brand name is required.',
+        ]);
+
+        $existing_image = $request['existing_image'];
+
+        $uploadedImage = $request['brand_image'];
+
+        if($uploadedImage)
+        {
+            $hexid = hexdec(uniqid());
+            $image_with_id_ext = $hexid.'.'.strtolower($uploadedImage->getClientOriginalExtension());
+            $upload_location = 'image/brands/';
+            $image = $upload_location.$image_with_id_ext;
+            $uploadedImage->move($upload_location,$image_with_id_ext);
+            unlink($existing_image);
+            Brand::find($id)->update([
+                'brand_name' => $request['brand_name'],
+                'brand_image' => $image
+            ]);
+            return Redirect('/brand/all/')->with('success','Success!!');
+        }
+        else{
+            Brand::find($id)->update([
+                'brand_name' => $request['brand_name']
+            ]);
+            return Redirect('/brand/all/')->with('success','Success!!');
+        }
+
+    }
+
+    public function deleteBrand($id){
+        Brand::find($id)->forceDelete();
+        return Redirect()->back()->with('success','item deleted successfully!!');
+    }
 }

@@ -24,6 +24,7 @@
                             <div class="card-body">
                                 <form method="POST" action="/brand/edit/{{$brand->id }}" enctype="multipart/form-data">
                                     @csrf
+                                    <input type="hidden" name="existing_image" value="{{$brand->brand_image}}"/>
                                     <div class="form-group">
                                     <label for="brandName">Update Brand Name</label>
                                     <input type="text" name="brand_name" class="form-control" id="brandName" placeholder="{{$brand->brand_name}}">
