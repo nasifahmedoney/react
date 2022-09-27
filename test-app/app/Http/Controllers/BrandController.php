@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
+
+
 
 class BrandController extends Controller
 {
@@ -36,7 +39,10 @@ class BrandController extends Controller
         $image = $upload_location.$image_with_id_ext;
 
         //move file to upload dir
-        $uploadedImage->move($upload_location,$image_with_id_ext);
+        //$uploadedImage->move($upload_location,$image_with_id_ext);
+
+        //resize and move
+        $resize_image = Image::make($uploadedImage)->resize(300,200)->save($image);
 
         Brand::create([
             'brand_name' => $request['brand_name'],

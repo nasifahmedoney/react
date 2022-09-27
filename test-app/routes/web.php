@@ -44,3 +44,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
         'users'=> $users
     ]);
 })->name('dashboard');
+
