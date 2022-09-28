@@ -37,6 +37,9 @@ Route::get('/brand/edit/{id}',[BrandController::class,'editBrands']);
 Route::post('/brand/edit/{id}',[BrandController::class,'updateBrands']);
 Route::get('/brand/delete/{id}',[BrandController::class,'deleteBrand']);
 
+//multiple pic upload
+Route::get('/multipic/store',[BrandController::class,'multipic'])->name('all.multipic');
+Route::post('/multipic/store',[BrandController::class,'multipicUpload']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = User::all();

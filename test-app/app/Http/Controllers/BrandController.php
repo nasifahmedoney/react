@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Multipic;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
@@ -98,5 +99,35 @@ class BrandController extends Controller
         unlink(public_path($image->brand_image));
         $image->forceDelete();
         return Redirect()->back()->with('success','item deleted successfully!!');
+    }
+
+    //multiple pic view
+    public function multipic(){
+        $images = Multipic::all();
+        return view('admin.multipic.index',[
+            'images' => $images
+        ]);
+    }
+
+    public function multipicUpload(Request $request){
+        $validate = $request->validate([
+            'image' => 'required'
+        ]);
+
+        $images = $request->file('image');
+
+        foreach($images as $image){
+            $hexid = hexdec(uniqid());
+            $image_with_id_ext = $hexid.'.'.strtolower($image->getClientOriginalExtension());
+            $upload_location = 'image/multi/';
+            $multi_image = $upload_location.$image_with_id_ext;
+            Image::make($image)->resize(300,200)->save($multi_image);
+
+            Multipic::create([
+                'image' => $multi_image
+            ]);
+        }
+
+        return Redirect()->back()->with('success','Success!!');
     }
 }
